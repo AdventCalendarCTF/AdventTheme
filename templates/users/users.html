@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Users</h1>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				{% if q and field %}
+				<h5 class="text-muted text-center">
+					Searching for users with <strong>{{ field }}</strong> matching <strong>{{ q }}</strong>
+				</h5>
+				<h6 class="text-muted text-center pb-3">
+					Page {{ users.page }} of {{ users.total }} results
+				</h6>
+				{% endif %}
+
+				{% with form = Forms.users.PublicUserSearchForm(field=field, q=q) %}
+				<form method="GET" class="form-inline row">
+					<div class="form-group col-md-2">
+						{{ form.field(class="form-control custom-select w-100") }}
+					</div>
+					<div class="form-group col-md-8">
+						{{ form.q(class="form-control w-100", placeholder="Search for matching users") }}
+					</div>
+					<div class="form-group col-md-2">
+						<button type="submit" class="btn btn-primary w-100">
+							<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" fill="currentColor" viewBox="0 0 1000 1000"> <defs> <style> .cls-1 { fill-rule: evenodd; } </style> </defs> <path class="cls-1" d="M892.285,819.383L666.631,593.728a310.794,310.794,0,0,0,58.05-181.388c0-172.5-139.839-312.34-312.341-312.34S100,239.838,100,412.34,239.838,724.681,412.34,724.681a310.918,310.918,0,0,0,181.4-58.05L819.383,892.275a25.053,25.053,0,0,0,35.342,0l37.56-37.55A25.071,25.071,0,0,0,892.285,819.383ZM412.34,624.732c-117.3,0-212.391-95.092-212.391-212.392S295.04,199.949,412.34,199.949,624.732,295.04,624.732,412.34,529.64,624.732,412.34,624.732Z"/> </svg>
+						</button>
+					</div>
+				</form>
+
+				{% endwith %}
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<td><b>User</b></td>
+						<td><b>Website</b></td>
+						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Affiliation</b></td>
+						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Country</b></td>
+					</tr>
+					</thead>
+					<tbody>
+					{% for user in users.items %}
+						<tr>
+							<td>
+								{% if scores_visible() %}
+									<a href="{{ url_for('users.public', user_id=user.id) }}">
+										{{ user.name | truncate(50) }}
+									</a>
+								{% else %}
+									<span>{{ user.name | truncate(50) }}</span>
+								{% endif %}
+								{% if user.oauth_id %}
+									<a href="https://majorleaguecyber.org/u/{{ user.name }}">
+										<span class="badge badge-primary">Official</span>
+									</a>
+								{% endif %}
+							</td>
+							<td class="text-center" style="width: 10px;">
+								{% if user.website and (user.website.startswith('http://') or user.website.startswith('https://')) %}
+									<a href="{{ user.website }}" target="_blank" rel="noopener">
+										<i class="fas fa-external-link-alt" data-toggle="tooltip" data-placement="top"
+										   title="{{ user.website }}"></i>
+									</a>
+								{% endif %}
+							</td>
+							<td class="d-none d-md-table-cell d-lg-table-cell">
+								{% if user.affiliation %}
+									{% if user.affiliation | length > 50 %}
+										<span data-toggle="tooltip" data-placement="top" title="{{ user.affiliation }}">
+									{% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
+								</span>
+									{% else %}
+										<span>
+									{% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
+								</span>
+									{% endif %}
+								{% endif %}
+							</td>
+							<td class="d-none d-md-table-cell d-lg-table-cell">
+								<span>
+									{% if user.country %}
+										<i class="flag-{{ user.country.lower() }}"></i>
+										{{ lookup_country_code(user.country) }}
+									{% endif %}
+								</span>
+							</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% if users.pages > 1 %}
+			<div class="row">
+				<div class="col-md-12">
+					<div class="text-center">Page
+						<br>
+						{% if users.page != 1 %}
+						<a href="{{ prev_page }}">&lt;&lt;&lt;</a>
+						{% endif %}
+						<select class="page-select">
+							{% for page in range(1, users.pages + 1) %}
+							<option {% if users.page == page %}selected{% endif %}>{{ page }}</option>
+							{% endfor %}
+						</select>
+						{% if users.next_num %}
+						<a href="{{ next_page }}">&gt;&gt;&gt;</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

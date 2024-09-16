@@ -1,0 +1,20 @@
+<div>
+{% for info in infos %}
+    <div class="alert alert-info alert-dismissible text-center" role="alert">
+        <span class="alert-icon"><span class="visually-hidden">Error</span></span>
+        <p>{{ info }}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span class="visually-hidden">Close</span>
+        </button>
+    </div>
+{% endfor %}
+{% for error in errors %}
+    <div class="alert alert-danger alert-dismissible text-center" role="alert">
+        <span class="alert-icon"><span class="visually-hidden">Error</span></span>
+        <p>{{ error }}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span class="visually-hidden">Close</span>
+        </button>
+    </div>
+{% endfor %}
+</div>
