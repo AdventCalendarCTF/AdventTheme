@@ -19,7 +19,3 @@ This theme provide a calendar allowing challenges to be displayed in this calend
 
 - Ability to have several challenges by day
 
-
-## This version of the theme uses depracted features. To be able to build the theme, run first:
-``export NODE_OPTIONS=--openssl-legacy-provider``̀
-

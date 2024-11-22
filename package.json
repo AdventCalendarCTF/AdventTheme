@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "webpack-cli -w --mode=development",
-    "build": "webpack-cli --mode=development; webpack-cli --mode=production",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack-cli --mode=development; NODE_OPTIONS=--openssl-legacy-provider webpack-cli --mode=production",
     "verify": "webpack-cli --mode=development --display=errors-only; webpack-cli --mode=production --display=errors-only; git diff --quiet --exit-code",
     "clean": "rm -rf CTFd/themes/core/static/css/* CTFd/themes/core/static/js/* CTFd/themes/admin/static/css/* CTFd/themes/admin/static/js/*",
     "lint": "eslint CTFd/themes/core/assets/ CTFd/themes/admin/assets/"
