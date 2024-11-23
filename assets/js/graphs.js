@@ -1,5 +1,5 @@
 import $ from "jquery";
-import echarts from "echarts/dist/echarts-en.common";
+import echarts from "echarts/dist/echarts.common";
 import dayjs from "dayjs";
 import { cumulativeSum, colorHash } from "./utils";
 

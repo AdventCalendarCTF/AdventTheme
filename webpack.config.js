@@ -6,7 +6,6 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const RemoveStrictPlugin = require('remove-strict-webpack-plugin')
 const WebpackShellPlugin = require('webpack-shell-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const roots = {
   '.': {
@@ -123,33 +122,14 @@ function getJSConfig(root, type, entries, mode) {
           }
         },
         {
-          test: /\.vue$/,
-          loader: 'vue-loader',
-          options: {
-            loaders: {
-              css: ['vue-style-loader', {
-                loader: 'css-loader',
-              }],
-              js: [
-                'babel-loader',
-              ],
-            },
-            cacheBusting: true,
-          },
-        },
-        // This rule is magically used to load the <style> section of VueJS SFC.
-        // Don't really understand what magic Vue is using here but it works.
-        {
           test: /\.css$/,
           use: [
-            'vue-style-loader',
             'css-loader'
           ]
         },
       ],
     },
     plugins: [
-      new VueLoaderPlugin(),
       new webpack.NamedModulesPlugin(),
       new RemoveStrictPlugin(),
       // Identify files that are generated in development but not in production and create stubs to avoid a 404
