@@ -31,7 +31,7 @@
     "bootstrap": "^4.6.2",
     "bootstrap-multimodal": "^1.0.4",
     "codemirror": "^5.58.2",
-    "css-loader": "^3.6.0",
+    "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "dayjs": "^1.11.1",
     "easymde": "^2.10.1",
