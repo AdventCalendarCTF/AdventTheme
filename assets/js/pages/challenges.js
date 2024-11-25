@@ -275,7 +275,7 @@ function loadChals() {
 
     for (let i = 0; i <= challenges.length - 1; i++) {
       const chalinfo = challenges[i];
-      let chalbutton;
+      let advcal_chalbutton;
 
       if (solves.indexOf(chalinfo.id) == -1) {
         advcal_chalbutton = "<button class='btn btn-dark challenge-button w-100 text-truncate pt-3 pb-3 chal-pending' value='{0}'>".format(
