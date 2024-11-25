@@ -1,7 +1,7 @@
 import "./main";
 import $ from "jquery";
 import CTFd from "../CTFd";
-import echarts from "echarts/dist/echarts.common";
+import * as echarts from "echarts/dist/echarts.common";
 import dayjs from "dayjs";
 import { htmlEntities, cumulativeSum, colorHash } from "../utils";
 
