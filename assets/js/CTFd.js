@@ -60,8 +60,8 @@ const CTFd = {
 
 export default CTFd;
 const active_nav = () => {
-	navbar = document.getElementsByTagName("nav")[0];
-	for (link of navbar.getElementsByTagName("a")) {
+	const navbar = document.getElementsByTagName("nav")[0];
+	for (let link of navbar.getElementsByTagName("a")) {
 		if (document.location.href == link.href) {
 			link.classList.add("active");
 		}

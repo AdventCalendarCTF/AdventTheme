@@ -2,10 +2,9 @@ const path = require('path')
 const webpack = require('webpack')
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const RemoveStrictPlugin = require('remove-strict-webpack-plugin')
-const WebpackShellPlugin = require('webpack-shell-plugin');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const roots = {
   '.': {
@@ -95,16 +94,7 @@ function getJSConfig(root, type, entries, mode) {
         },
       },
       minimizer: [
-        new UglifyJsPlugin({
-            cache: true,
-            parallel: true,
-            uglifyOptions: {
-              compress: {
-                // Remove console.log in production
-                drop_console: mode === 'production'
-              },
-            },
-        }),
+        new TerserPlugin()
       ],
     },
     module: {
@@ -130,11 +120,9 @@ function getJSConfig(root, type, entries, mode) {
       ],
     },
     plugins: [
-      new webpack.NamedModulesPlugin(),
-      new RemoveStrictPlugin(),
       // Identify files that are generated in development but not in production and create stubs to avoid a 404
       // Pretty nasty hack, would be a little better if this was purely JS
-      new WebpackShellPlugin({
+      new WebpackShellPluginNext({
         onBuildEnd:[
           mode == 'development' ? 'echo Skipping JS stub generation' : 'python3 -c \'exec(\"\"\"\nimport glob\nimport os\n\nstatic_js_dirs = [\n    "static/js/**/*.dev.js",\n]\n\nfor js_dir in static_js_dirs:\n    for path in glob.glob(js_dir, recursive=True):\n        if path.endswith(".dev.js"):\n            path = path.replace(".dev.js", ".min.js")\n            if os.path.isfile(path) is False:\n                open(path, "a").close()\n\"\"\")\''
         ],
@@ -169,23 +157,17 @@ function getCSSConfig(root, type, entries, mode) {
     },
     optimization: {
       minimizer: [
-        new OptimizeCssAssetsPlugin({})
+        new CssMinimizerPlugin()
       ]
     },
     module: {
       rules: [
         {
           test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?(#\w+)?$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: '[name].[ext]',
-                publicPath: '../fonts',
-                outputPath: '../fonts',
-              }
-            }
-          ]
+	  type: "asset/resource",
+	  generator: {
+	    filename: '../fonts/[name][ext]'
+	  }
         },
         {
           test: /\.(s?)css$/,

@@ -421,7 +421,7 @@ const drawCalendar = id => {
 	if (first_december_dof == 0) {
 		first_december_dof = 7;
 	}
-	for (i=1; i<8; i++) {
+	for (let i=1; i<8; i++) {
 		if ( i < first_december_dof ) {
 			html_cal += '<td class="no-december no-chal"><div class="pt-3 pb-3 bg-light"></div></td>';
 		} else if ( (i > 5) && (window.init.theme_settings.challOnWE == "false")  ) {
@@ -436,7 +436,7 @@ const drawCalendar = id => {
 
 	while (current_day <= last_day) {
 		html_cal+='<tr id="Week'+week+'">';
-		for (i=1; i<8; i++) {
+		for (let i=1; i<8; i++) {
 			if (current_day > last_day){
 				html_cal += '<td class="no-december no-chal"><div class="pt-3 pb-3 bg-light"></div></td>';
 			} else if ((i > 5) && (window.init.theme_settings.challOnWE == "false") ) {

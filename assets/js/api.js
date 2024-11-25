@@ -1,3 +1,4 @@
+"use strict";
 import fetch from "./fetch";
 /*jshint esversion: 6 */
 /*global fetch, btoa */
