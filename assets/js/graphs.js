@@ -86,20 +86,14 @@ const graph_configs = {
         name: window.stats_data.name,
         type: "line",
         label: {
-          normal: {
             show: true,
             position: "top"
-          }
         },
         areaStyle: {
-          normal: {
             color: colorHash(name + id)
-          }
         },
         itemStyle: {
-          normal: {
             color: colorHash(name + id)
-          }
         },
         data: cumulativeSum(scores)
       });
@@ -137,11 +131,10 @@ const graph_configs = {
             radius: ["30%", "50%"],
             avoidLabelOverlap: false,
             label: {
-              show: false,
-              position: "center"
+              show: true,
+              position: "outside"
             },
             itemStyle: {
-              normal: {
                 label: {
                   show: true,
                   formatter: function(data) {
@@ -150,24 +143,13 @@ const graph_configs = {
                 },
                 labelLine: {
                   show: true
-                }
-              },
-              emphasis: {
-                label: {
-                  show: true,
-                  position: "center",
-                  textStyle: {
-                    fontSize: "14",
-                    fontWeight: "normal"
-                  }
-                }
-              }
+                },
             },
             emphasis: {
               label: {
                 show: true,
                 fontSize: "30",
-                fontWeight: "bold"
+                fontWeight: "bold",
               }
             },
             labelLine: {
@@ -243,11 +225,10 @@ const graph_configs = {
             radius: ["30%", "50%"],
             avoidLabelOverlap: false,
             label: {
-              show: false,
-              position: "center"
+              show: true,
+              position: "outside"
             },
             itemStyle: {
-              normal: {
                 label: {
                   show: true,
                   formatter: function(data) {
@@ -256,18 +237,7 @@ const graph_configs = {
                 },
                 labelLine: {
                   show: true
-                }
-              },
-              emphasis: {
-                label: {
-                  show: true,
-                  position: "center",
-                  textStyle: {
-                    fontSize: "14",
-                    fontWeight: "normal"
-                  }
-                }
-              }
+                },
             },
             emphasis: {
               label: {

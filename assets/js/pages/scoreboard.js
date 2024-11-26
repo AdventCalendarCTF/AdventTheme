@@ -119,14 +119,10 @@ const buildGraphData = () => {
         name: places[teams[i]]["name"],
         type: "line",
         label: {
-          normal: {
             position: "top"
-          }
         },
         itemStyle: {
-          normal: {
             color: colorHash(places[teams[i]]["name"] + places[teams[i]]["id"])
-          }
         },
         data: scores
       };
