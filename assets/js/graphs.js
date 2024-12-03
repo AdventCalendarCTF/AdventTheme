@@ -73,7 +73,7 @@ const graph_configs = {
         times.push(date.toDate());
         try {
           scores.push(total[i].challenge.value);
-        } catch (e) {
+        } catch {
           scores.push(total[i].value);
         }
       }
