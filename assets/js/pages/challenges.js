@@ -282,7 +282,10 @@ function loadChals() {
 	/* Pour le calendrier de l'avent */
       for (let tag of chalinfo.tags) {
         if (tag.value.startsWith("day-")) {
-          const advcal_el = $('#cal-chal-' + tag.value)[0];
+          const advcal_el = document.getElementById('cal-chal-' + tag.value);
+          if (advcal_el == null) {
+            continue;
+          }
 		      const advcal_day = advcal_el.innerText;
 		      advcal_el.innerHTML = advcal_chalbutton + advcal_day + "</button>";
         }
