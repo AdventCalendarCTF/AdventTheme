@@ -261,13 +261,8 @@ function getSolves(id) {
 
 function loadChals() {
   return CTFd.api.get_challenge_list().then(function(response) {
-	  const advcal_next_day = {"Week1": 0, "Week2": 0, "Week3": 0, "Week4": 0, "Week5": 0}; 
     const $challenges_board = $("#chal-calendar");
     challenges = response.data;
-
-    if (window.BETA_sortChallenges) {
-      challenges = window.BETA_sortChallenges(challenges);
-    }
 
     $challenges_board.empty();
 
@@ -285,13 +280,12 @@ function loadChals() {
       }
 
 	/* Pour le calendrier de l'avent */
-	    const advcal_cat = chalinfo.category.replace(/ /g, "");
-	    if (advcal_cat in advcal_next_day) { 
-		    var advcal_el = $("#"+advcal_cat+" > .has-chal")[advcal_next_day[advcal_cat]];
-		    const advcal_day = advcal_el.innerText;
-		    advcal_el.innerHTML = advcal_chalbutton + advcal_day + "</button>";
-
-		    advcal_next_day[advcal_cat]++;
+      for (let tag of chalinfo.tags) {
+        if (tag.value.startsWith("day-")) {
+          const advcal_el = $('#cal-chal-' + tag.value)[0];
+		      const advcal_day = advcal_el.innerText;
+		      advcal_el.innerHTML = advcal_chalbutton + advcal_day + "</button>";
+        }
 	    }
     }
 
@@ -428,7 +422,7 @@ const drawCalendar = id => {
 			html_cal += '<td class="week-end no-chal"><div class="pt-3 pb-3 bg-light">'+current_day+'</div></td>';
 			current_day ++;
 		} else {
-			html_cal += '<td id="cal-chal-' + String(current_day).padStart(2, '0') + '" class="has-chal"><div class="pt-3 pb-3 bg-white">'+current_day+'</div></td>';
+			html_cal += '<td id="cal-chal-day-' + String(current_day).padStart(2, '0') + '" class="has-chal"><div class="pt-3 pb-3 bg-white">'+current_day+'</div></td>';
 			current_day ++;
 		}
 	}
@@ -442,7 +436,7 @@ const drawCalendar = id => {
 			} else if ((i > 5) && (window.init.theme_settings.challOnWE == "false") ) {
 				html_cal += '<td class="week-end no-chal"><div class="pt-3 pb-3 bg-light">'+current_day+'</div></td>';
 			} else if (current_day <= window.init.theme_settings.lastDayOfCalendar ) {
-				html_cal += '<td id="cal-chal-' + String(current_day).padStart(2, '0') + '" class="has-chal"><div class="pt-3 pb-3 bg-white">'+current_day+'</div></td>';
+				html_cal += '<td id="cal-chal-day-' + String(current_day).padStart(2, '0') + '" class="has-chal"><div class="pt-3 pb-3 bg-white">'+current_day+'</div></td>';
 			} else {
 				html_cal += '<td class="after-christmas no-chal"><div class="pt-3 pb-3 bg-light">'+current_day+'</div></td>';
 			}
