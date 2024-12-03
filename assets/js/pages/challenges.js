@@ -401,6 +401,9 @@ if (window.init.theme_settings.lastDayOfCalendar === undefined) {
 if (window.init.theme_settings.challOnWE === undefined) {
 	window.init.theme_settings.challOnWE = "false";
 }
+if (window.init.theme_settings.calendarMessage === undefined) {
+	window.init.theme_settings.calendarMessage = "";
+}
 
 const drawCalendar = id => {
 
@@ -448,5 +451,6 @@ const drawCalendar = id => {
 	}
 	html_cal += "</tbody></table>";
 	document.getElementById(id).innerHTML =  html_cal;
+  document.getElementById("calendar-message").innerHTML = window.init.theme_settings.calendarMessage;
 };
 drawCalendar("chal-calendar");
