@@ -49,7 +49,6 @@
 					<tr>
 						<td><b>User</b></td>
 						<td><b>Website</b></td>
-						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Affiliation</b></td>
 						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Country</b></td>
 					</tr>
 					</thead>
@@ -70,25 +69,12 @@
 									</a>
 								{% endif %}
 							</td>
-							<td class="text-center" style="width: 10px;">
+							<td class="d-none d-md-table-cell d-lg-table-cell">
 								{% if user.website and (user.website.startswith('http://') or user.website.startswith('https://')) %}
 									<a href="{{ user.website }}" target="_blank" rel="noopener">
 										<i class="fas fa-external-link-alt" data-toggle="tooltip" data-placement="top"
 										   title="{{ user.website }}"></i>
 									</a>
-								{% endif %}
-							</td>
-							<td class="d-none d-md-table-cell d-lg-table-cell">
-								{% if user.affiliation %}
-									{% if user.affiliation | length > 50 %}
-										<span data-toggle="tooltip" data-placement="top" title="{{ user.affiliation }}">
-									{% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
-								</span>
-									{% else %}
-										<span>
-									{% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
-								</span>
-									{% endif %}
 								{% endif %}
 							</td>
 							<td class="d-none d-md-table-cell d-lg-table-cell">
