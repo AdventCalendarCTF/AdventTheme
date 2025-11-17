@@ -9,6 +9,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const roots = {
   '.': {
     'css': {
+      'advent': 'assets/css/advent.scss',
       'challenge-board': 'assets/css/challenge-board.scss',
       'fonts': 'assets/css/fonts.scss',
       'main': 'assets/css/main.scss',
