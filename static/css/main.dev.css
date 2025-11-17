@@ -9347,7 +9347,7 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 .award-icon {
-  font-family: "Font Awesome 5 Free", "Font Awesome 5 Free Offline";
+  font-family: "Font Awesome 6 Free";
   font-weight: 900;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -9376,6 +9376,14 @@ a.text-dark:hover, a.text-dark:focus {
 
 .award-ban:before {
   content: "\f05e";
+}
+
+.award-brain:before {
+  content: "\f5dc";
+}
+
+.award-skull:before {
+  content: "\f54c";
 }
 
 .award-lightning:before {

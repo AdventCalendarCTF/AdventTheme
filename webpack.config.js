@@ -43,7 +43,7 @@ function getJSConfig(root, type, entries, mode) {
     mode: mode,
     output: {
       path: path.resolve(__dirname, root, 'static', type),
-      publicPath: '/' + root + '/static/' + type,
+      publicPath: '/' + root + '/static/' + type + '/',
       filename: `[name].${ext}.js`,
       chunkFilename: chunk_file,
     },
@@ -154,7 +154,7 @@ function getCSSConfig(root, type, entries, mode) {
     mode: mode,
     output: {
       path: path.resolve(__dirname, root, 'static', type),
-      publicPath: '/' + root + '/static/' + type,
+      publicPath: '/' + root + '/static/' + type +'/',
     },
     optimization: {
       minimizer: [
@@ -188,12 +188,12 @@ function getCSSConfig(root, type, entries, mode) {
                   { search: "font-face\s*{\s*font-family:\s*[\"']Lato[\"']", replace: "font-face{font-family:'LatoOffline'", flags: 'gm' },
                   { search: "font-face\s*{\s*font-family:\s*[\"']Raleway[\"']", replace: "font-face{font-family:'RalewayOffline'", flags: 'gm' },
                   // Replace Font-Awesome font-faces
-                  { search: "font-face\s*{\s*font-family:\s*[\"']Font Awesome 5 Free[\"']", replace: "font-face{font-family:'Font Awesome 5 Free Offline'", flags: 'gm' },
-                  { search: "font-face\s*{\s*font-family:\s*[\"']Font Awesome 5 Brands[\"']", replace: "font-face{font-family:'Font Awesome 5 Brands Offline'", flags: 'gm' },
+                  { search: "font-face\s*{\s*font-family:\s*[\"']Font Awesome 6 Free[\"']", replace: "font-face{font-family:'Font Awesome 6 Free Offline'", flags: 'gm' },
+                  { search: "font-face\s*{\s*font-family:\s*[\"']Font Awesome 6 Brands[\"']", replace: "font-face{font-family:'Font Awesome 6 Brands Offline'", flags: 'gm' },
                   // Replace Font-Awesome class rules
-                  { search: "far\s*{\s*font-family:\s*[\"']Font Awesome 5 Free[\"']", replace: "far{font-family:'Font Awesome 5 Free','Font Awesome 5 Free Offline'", flags: 'gm' },
-                  { search: "fas\s*{\s*font-family:\s*[\"']Font Awesome 5 Free[\"']", replace: "fas{font-family:'Font Awesome 5 Free','Font Awesome 5 Free Offline'", flags: 'gm' },
-                  { search: "fab\s*{\s*font-family:\s*[\"']Font Awesome 5 Brands[\"']", replace: "fab{font-family:'Font Awesome 5 Brands','Font Awesome 5 Brands Offline'", flags: 'gm' },
+                  { search: "far\s*{\s*font-family:\s*[\"']Font Awesome 6 Free[\"']", replace: "far{font-family:'Font Awesome 6 Free','Font Awesome 6 Free Offline'", flags: 'gm' },
+                  { search: "fas\s*{\s*font-family:\s*[\"']Font Awesome 6 Free[\"']", replace: "fas{font-family:'Font Awesome 6 Free','Font Awesome 6 Free Offline'", flags: 'gm' },
+                  { search: "fab\s*{\s*font-family:\s*[\"']Font Awesome 6 Brands[\"']", replace: "fab{font-family:'Font Awesome 6 Brands','Font Awesome 6 Brands Offline'", flags: 'gm' },
                 ],
                 strict: true,
               }
