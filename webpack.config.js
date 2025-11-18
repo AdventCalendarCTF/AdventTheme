@@ -6,6 +6,7 @@ const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
+const themePath = "themes/AdventTheme"
 const roots = {
   '.': {
     'css': {
@@ -43,7 +44,7 @@ function getJSConfig(root, type, entries, mode) {
     mode: mode,
     output: {
       path: path.resolve(__dirname, root, 'static', type),
-      publicPath: '/' + root + '/static/' + type + '/',
+      publicPath: '/' + themePath + '/static/' + type + '/',
       filename: `[name].${ext}.js`,
       chunkFilename: chunk_file,
     },
@@ -154,7 +155,7 @@ function getCSSConfig(root, type, entries, mode) {
     mode: mode,
     output: {
       path: path.resolve(__dirname, root, 'static', type),
-      publicPath: '/' + root + '/static/' + type +'/',
+      publicPath: '/' + themePath + '/static/' + type +'/',
     },
     optimization: {
       minimizer: [
@@ -187,13 +188,6 @@ function getCSSConfig(root, type, entries, mode) {
                   // Replace core font-faces
                   { search: "font-face\s*{\s*font-family:\s*[\"']Lato[\"']", replace: "font-face{font-family:'LatoOffline'", flags: 'gm' },
                   { search: "font-face\s*{\s*font-family:\s*[\"']Raleway[\"']", replace: "font-face{font-family:'RalewayOffline'", flags: 'gm' },
-                  // Replace Font-Awesome font-faces
-                  { search: "font-face\s*{\s*font-family:\s*[\"']Font Awesome 6 Free[\"']", replace: "font-face{font-family:'Font Awesome 6 Free Offline'", flags: 'gm' },
-                  { search: "font-face\s*{\s*font-family:\s*[\"']Font Awesome 6 Brands[\"']", replace: "font-face{font-family:'Font Awesome 6 Brands Offline'", flags: 'gm' },
-                  // Replace Font-Awesome class rules
-                  { search: "far\s*{\s*font-family:\s*[\"']Font Awesome 6 Free[\"']", replace: "far{font-family:'Font Awesome 6 Free','Font Awesome 6 Free Offline'", flags: 'gm' },
-                  { search: "fas\s*{\s*font-family:\s*[\"']Font Awesome 6 Free[\"']", replace: "fas{font-family:'Font Awesome 6 Free','Font Awesome 6 Free Offline'", flags: 'gm' },
-                  { search: "fab\s*{\s*font-family:\s*[\"']Font Awesome 6 Brands[\"']", replace: "fab{font-family:'Font Awesome 6 Brands','Font Awesome 6 Brands Offline'", flags: 'gm' },
                 ],
                 strict: true,
               }
