@@ -272,12 +272,7 @@ function loadChals() {
       const chalinfo = challenges[i];
       let advcal_chalbutton;
 
-      if (solves.indexOf(chalinfo.id) == -1) {
-        advcal_chalbutton = "<button class='btn btn-dark challenge-button w-100 text-truncate pt-3 pb-3 chal-pending' value='{0}'>".format(
-            chalinfo.id);
-      } else {
-        advcal_chalbutton = "<button class='btn btn-success challenge-button w-100 text-truncate pt-3 pb-3 chal-completed' value='{0}'>".format( chalinfo.id);
-      }
+
 
 	/* Pour le calendrier de l'avent */
       for (let tag of chalinfo.tags) {
@@ -286,8 +281,26 @@ function loadChals() {
           if (advcal_el == null) {
             continue;
           }
+          if (solves.indexOf(chalinfo.id) == -1) {
+            advcal_chalbutton = "<button class='btn btn-dark challenge-button w-100 text-truncate pt-3 pb-3 chal-pending' value='{0}'>".format(
+            chalinfo.id);
+          } else {
+            advcal_chalbutton = "<button class='btn btn-success challenge-button w-100 text-truncate pt-3 pb-3 chal-completed' value='{0}'>".format( chalinfo.id);
+          }
 		      const advcal_day = advcal_el.innerText;
 		      advcal_el.innerHTML = advcal_chalbutton + advcal_day + "</button>";
+          continue;
+        }
+        if (tag.value == "extra") {
+          /* pour les challenges extra */
+          if (solves.indexOf(chalinfo.id) == -1) {
+            advcal_chalbutton = "<div class=\"col-sm-6 col-md-4 col-lg-3 my-3\"><button class='btn btn-dark challenge-button w-100 text-truncate pt-3 pb-3 chal-pending' value='{0}'>".format(
+            chalinfo.id);
+          } else {
+            advcal_chalbutton = "<div class=\"col-sm-6 col-md-4 col-lg-3 my-3\"><button class='btn btn-success challenge-button w-100 text-truncate pt-3 pb-3 chal-completed' value='{0}'>".format( chalinfo.id);
+          }
+          let extra_chals = document.getElementById('extra-echallenges-container');
+          extra_chals.innerHTML += advcal_chalbutton + chalinfo.name + "</button></div>";
         }
 	    }
     }
