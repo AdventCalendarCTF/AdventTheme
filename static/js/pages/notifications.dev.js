@@ -16,7 +16,7 @@
   \******************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("\n\n__webpack_require__(/*! ./main */ \"./assets/js/pages/main.js\");\nvar _jquery = _interopRequireDefault(__webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\"));\nvar _utils = __webpack_require__(/*! ../utils */ \"./assets/js/utils.js\");\nfunction _interopRequireDefault(e) { return e && e.__esModule ? e : { \"default\": e }; }\n(0, _jquery[\"default\"])(function () {\n  (0, _utils.clear_notification_counter)();\n});\n\n//# sourceURL=webpack://ctfd/./assets/js/pages/notifications.js?");
+eval("{\n\n__webpack_require__(/*! ./main */ \"./assets/js/pages/main.js\");\nvar _jquery = _interopRequireDefault(__webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\"));\nvar _utils = __webpack_require__(/*! ../utils */ \"./assets/js/utils.js\");\nfunction _interopRequireDefault(e) { return e && e.__esModule ? e : { \"default\": e }; }\n(0, _jquery[\"default\"])(function () {\n  (0, _utils.clear_notification_counter)();\n});\n\n//# sourceURL=webpack://ctfd/./assets/js/pages/notifications.js?\n}");
 
 /***/ })
 

@@ -3710,12 +3710,14 @@ input[type=button].btn-block {
   border: 0;
   border-radius: 1rem;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  appearance: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .custom-range::-webkit-slider-thumb {
     transition: none;
   }
+}
+.custom-range::-webkit-slider-thumb {
+  appearance: none;
 }
 .custom-range::-webkit-slider-thumb:active {
   background-color: rgb(178.5, 215.4, 255);
@@ -3736,12 +3738,14 @@ input[type=button].btn-block {
   border: 0;
   border-radius: 1rem;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  appearance: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .custom-range::-moz-range-thumb {
     transition: none;
   }
+}
+.custom-range::-moz-range-thumb {
+  appearance: none;
 }
 .custom-range::-moz-range-thumb:active {
   background-color: rgb(178.5, 215.4, 255);
@@ -3765,12 +3769,14 @@ input[type=button].btn-block {
   border: 0;
   border-radius: 1rem;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  appearance: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .custom-range::-ms-thumb {
     transition: none;
   }
+}
+.custom-range::-ms-thumb {
+  appearance: none;
 }
 .custom-range::-ms-thumb:active {
   background-color: rgb(178.5, 215.4, 255);
@@ -4171,10 +4177,6 @@ input[type=button].btn-block {
     display: none;
   }
 }
-.navbar-expand {
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-}
 .navbar-expand > .container,
 .navbar-expand > .container-fluid,
 .navbar-expand > .container-sm,
@@ -4183,6 +4185,10 @@ input[type=button].btn-block {
 .navbar-expand > .container-xl {
   padding-right: 0;
   padding-left: 0;
+}
+.navbar-expand {
+  flex-flow: row nowrap;
+  justify-content: flex-start;
 }
 .navbar-expand .navbar-nav {
   flex-direction: row;
@@ -5350,12 +5356,14 @@ a.close.disabled {
 }
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
-  transform: translate(0, -50px);
 }
 @media (prefers-reduced-motion: reduce) {
   .modal.fade .modal-dialog {
     transition: none;
   }
+}
+.modal.fade .modal-dialog {
+  transform: translate(0, -50px);
 }
 .modal.show .modal-dialog {
   transform: none;
