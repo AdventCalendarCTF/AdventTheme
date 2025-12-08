@@ -7,6 +7,13 @@
 				<li class="nav-item">
 					<a class="nav-link active" href="#challenge">Challenge</a>
 				</li>
+				{% if challenge.solution != None and challenge.solution.state == "visible" %}
+				<li class="nav-item">
+					<a class="nav-link challenge-solution" href="#solution">
+						Solution
+					</a>
+				</li>
+				{% endif %}
 				{% block solves %}
 					<li class="nav-item">
 						<a class="nav-link challenge-solves" href="#solves">
@@ -125,7 +132,16 @@
 							</div>
 						</div>
 					</div>
-
+					{% if challenge.solution != None  and challenge.solution.state == "visible" %}
+					<div role="tabpanel" class="tab-pane fade" id="solution">
+						<div class="row">
+							<div class="col-md-12">
+								<div id="challenge-solution-content" style="white-space: pre-wrap;" class="challenge-solution-content pt-3">
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endif %}
 					<div role="tabpanel" class="tab-pane fade" id="solves">
 						<div class="row">
 							<div class="col-md-12">

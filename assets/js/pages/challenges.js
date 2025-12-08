@@ -90,6 +90,9 @@ const displayChal = chal => {
       event.preventDefault();
       $(this).tab("show");
     });
+    $(".challenge-solution").click(function(_event) {
+      getSolution(challenge.data.solution_id);
+    })
 
     // Handle modal toggling
     $("#challenge-window").on("hide.bs.modal", function(_event) {
@@ -419,6 +422,28 @@ if (window.init.theme_settings.challOnWE === undefined) {
 }
 if (window.init.theme_settings.calendarMessage === undefined) {
 	window.init.theme_settings.calendarMessage = "";
+}
+
+import fetch from "../fetch";
+
+function getSolution(id) {
+  if (!id) {
+    // pas d'id, rien à faire
+    return Promise.reject(new Error("No solution id provided"));
+  }
+  return fetch("/api/v1/solutions/"+id).then(response => {
+    if (! response.ok){
+      // gérer les codes HTTP non 2xx
+      throw new Error(`Erreur HTTP ${response.status}`);
+    }
+    return response.json();
+  }).then( data => {
+    console.log(data);
+    const box = $("#challenge-solution-content");
+    console.log(box);
+    box.empty();
+    box.append(data.data.html);
+  });
 }
 
 const drawCalendar = id => {
