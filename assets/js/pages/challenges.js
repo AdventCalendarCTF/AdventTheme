@@ -438,9 +438,7 @@ function getSolution(id) {
     }
     return response.json();
   }).then( data => {
-    console.log(data);
     const box = $("#challenge-solution-content");
-    console.log(box);
     box.empty();
     box.append(data.data.html);
   });
