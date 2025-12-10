@@ -425,6 +425,16 @@ if (window.init.theme_settings.calendarMessage === undefined) {
 }
 
 import fetch from "../fetch";
+const unlockSolution = id => {
+  const params = {
+    target: id,
+    type: "solutions"
+  };
+  CTFd.api.post_unlock_list({}, params).then(response => {
+    if (response.success) 
+      getSolution(id);
+  });
+};
 
 function getSolution(id) {
   if (!id) {
@@ -438,9 +448,13 @@ function getSolution(id) {
     }
     return response.json();
   }).then( data => {
-    const box = $("#challenge-solution-content");
-    box.empty();
-    box.append(data.data.html);
+    if (data.data.html === undefined) {
+      return unlockSolution(id);
+    } else {
+      const box = $("#challenge-solution-content");
+      box.empty();
+      box.append(data.data.html);
+    }
   });
 }
 
