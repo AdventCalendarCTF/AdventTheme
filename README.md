@@ -18,6 +18,11 @@ This theme provide a calendar allowing challenges to be displayed in this calend
 5. You can add also extra challenges with the tag "extra". These challenges will be displayed under the calendar.
 6. Enjoy your advent CTF!
 
+## To upgrade from the previous version
+1. Do a git pull on the theme folder
+2. Ensure that the logo is set in the config (This version does not provide a default logo)
+3. If needed, check the custom pages to ensure they are still working as expected.
+
 ## Future Feature
 
 - Ability to have several challenges by day

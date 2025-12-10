@@ -1,52 +1,103 @@
 {% extends "base.html" %}
 
-{% block stylesheets %}
-	<link rel="stylesheet" href="{{ url_for('views.themes', path='css/challenge-board.css') }}">
-{% endblock %}
-
 {% block content %}
-<div class="jumbotron">
-	<div class="container">
-		<h1>Challenges</h1>
-	</div>
-</div>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>
+        {% trans %}Challenges{% endtrans %}
+      </h1>
+    </div>
+  </div>
 
-<div class="modal fade" id="challenge-window" tabindex="-1" role="dialog">
-</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {% include "components/errors.html" %}
+      </div>
+    </div>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			{% include "components/errors.html" %}
-		</div>
-	</div>
-	<div id='chal-calendar'>
-		<div class="min-vh-50 d-flex align-items-center">
-			<div class="text-center w-100">
-				<i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
-			</div>
-		</div>
-	</div>
-	<div id="extra_challenges">
-		<div class="category-header mb-3">
-			<h3>Extra Challenges</h3>
-		</div>
-		<div class="category-challenges d-flex flex-column">
-			<div id ="extra-echallenges-container" class="challenges-row row">
-			</div>
-		</div>
+    <div 
+      x-data="ChallengeBoard" 
+      @load-challenges.window="loadChallenges()" 
+      @load-challenge.window="loadChallenge($event.detail)"
+    >
+      <div
+          x-ref="challengeWindow" id="challenge-window" class="modal fade" tabindex="-1" role="dialog" x-data=""
+          x-html="$store.challenge.data.view"
+      ></div>
 
+      <div x-show="!loaded">
+        <div class="min-vh-50 d-flex align-items-center">
+          <div class="text-center w-100">
+            <i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
+          </div>
+        </div>
+      </div>
 
+      <div x-show="loaded">
+        <table class="table table-chal text-center">
+          <thead>
+            <tr>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+              <th>Thursday</th>
+              <th>Friday</th>
+              <th>Saturday</th>
+              <th>Sunday</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="week in generateCalendar()">
+              <tr>
+                <template x-for="day in week">
+                  <td 
+                    :class="{
+                      'no-month-of-calendar no-chal': day.status == 'NOT_CALENDAR_MONTH',
+                      'week-end no-chal': day.status == 'NO_CHALL_WE',
+                      'has-chal': day.status == 'CHALL'
+                    }">
+                    <template x-if="day.challenge_id === undefined">
+                      <div x-text="day.date"></div> 
+                    </template>
+                    <template x-if="day.challenge_id !== undefined">
+                      <button 
+                          :class="day.solved ? 'btn btn-success challenge-solved' : 
+                                               'btn btn-dark chal-pending'" 
+                          class="w-100 text-truncate"
+                          @click="loadChallenge(day.challenge_id)" x-text="day.date"></button>
 
-	</div>
+                    </template>
+                  </td>
+                </template>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
 
-	<div id='calendar-message' class="text-center"</div>
-</div>
+      <template x-if="hasExtraChallenges()">
+        <div>
+          <div class="category-header mb-3">
+            <h3>Extra Challenges</h3>
+          </div>
+          <div class="category-challenges d-flex flex-column">
+            <div id="extra-echallenges-container" class="challenges-row row">
+              <template x-for="challenge in getExtraChallenges()">
+                <div class="col-md-4 mb-3">
+                  <button class="btn w-100 text-truncate pt-3 pb-3"
+                          :class="challenge.solved_by_me ? 'btn-success chall-completed' : 'btn-dark chal-pending'" 
+                          @click="loadChallenge(challenge.id)" x-text="challenge.name"></button>  
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
 {% endblock %}
 
 {% block scripts %}
-{% endblock %}
-
-{% block entrypoint %}
-	<script defer src="{{ url_for('views.themes', path='js/pages/challenges.js') }}"></script>
+  {{ Assets.js("assets/js/challenges.js") }}
 {% endblock %}

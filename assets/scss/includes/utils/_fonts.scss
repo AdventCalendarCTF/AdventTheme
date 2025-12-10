@@ -1,0 +1,16 @@
+$fa-font-path: "../webfonts";
+$font-path: "../webfonts/" !default;
+@import "~/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~/@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~/@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~/boosted/scss/orange-helvetica.scss";
+
+html,
+body,
+.container {
+  font-family: var(--bs-font-sans-serif);
+}
+
+.jumbotron .container {
+  font-family: var(--bs-font-sans-serif);
+}
