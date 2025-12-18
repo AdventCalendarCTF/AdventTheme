@@ -268,8 +268,11 @@ function loadChals() {
     challenges = response.data;
 
     $challenges_board.empty();
+    let extra_chals = document.getElementById('extra-echallenges-container');
+    extra_chals.innerHTML = "";
+    
 
-	drawCalendar("chal-calendar");
+  	drawCalendar("chal-calendar");
 
     for (let i = 0; i <= challenges.length - 1; i++) {
       const chalinfo = challenges[i];
@@ -302,7 +305,6 @@ function loadChals() {
           } else {
             advcal_chalbutton = "<div class=\"col-sm-6 col-md-4 col-lg-3 my-3\"><button class='btn btn-success challenge-button w-100 text-truncate pt-3 pb-3 chal-completed' value='{0}'>".format( chalinfo.id);
           }
-          let extra_chals = document.getElementById('extra-echallenges-container');
           extra_chals.innerHTML += advcal_chalbutton + chalinfo.name + "</button></div>";
         }
 	    }
