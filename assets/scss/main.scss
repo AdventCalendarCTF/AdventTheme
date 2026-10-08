@@ -64,13 +64,14 @@ select {
 }
 
 .table-chal td {
-        width: 14%;
-        padding: 1px !important;
+  width: 14%;
+  padding: 1px !important;
 }
 
-.table-chal td div, .table-chal td button {
+.table-chal td div,
+.table-chal td button {
   padding: 1.25rem 0;
 }
 .no-chal div {
-        height: 60px;
+  height: 60px;
 }

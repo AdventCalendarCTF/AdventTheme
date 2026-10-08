@@ -277,23 +277,22 @@ Alpine.data("ChallengeBoard", () => ({
 
   async init() {
     if (window.init.themeSettings === undefined || window.init.themeSettings == null)
-        window.init.themeSettings = {};
+      window.init.themeSettings = {};
 
     if (window.init.themeSettings.yearOfCalendar === undefined)
-            window.init.themeSettings.yearOfCalendar = "2026";
-    
+      window.init.themeSettings.yearOfCalendar = "2026";
+
     if (window.init.themeSettings.monthOfCalendar === undefined)
-            window.init.themeSettings.monthOfCalendar = "12";
-    
-    if (window.init.themeSettings.lastDayOfCalendar === undefined) 
-            window.init.themeSettings.lastDayOfCalendar = "24";
-    
-    if (window.init.themeSettings.challOnWE === undefined) 
-            window.init.themeSettings.challOnWE = "false";
-    
-    if (window.init.themeSettings.calendarMessage === undefined) 
-            window.init.themeSettings.calendarMessage = "";
-    
+      window.init.themeSettings.monthOfCalendar = "12";
+
+    if (window.init.themeSettings.lastDayOfCalendar === undefined)
+      window.init.themeSettings.lastDayOfCalendar = "24";
+
+    if (window.init.themeSettings.challOnWE === undefined)
+      window.init.themeSettings.challOnWE = "false";
+
+    if (window.init.themeSettings.calendarMessage === undefined)
+      window.init.themeSettings.calendarMessage = "";
 
     this.challenges = await CTFd.pages.challenges.getChallenges();
     this.loaded = true;
@@ -347,36 +346,39 @@ Alpine.data("ChallengeBoard", () => ({
 
   generateCalendar() {
     const calendar = [];
-    const first_month_dayOfWeek = new Date(window.init.themeSettings.yearOfCalendar, 
-	    window.init.themeSettings.monthOfCalendar - 1,
-	    1).getDay();
-    const last_month_day = new Date(window.init.themeSettings.yearOfCalendar, 
-	    window.init.themeSettings.monthOfCalendar,
-	    0).getDate();
-      if (first_month_dayOfWeek == 0) 
-        first_month_dayOfWeek = 7;
+    const first_month_dayOfWeek = new Date(
+      window.init.themeSettings.yearOfCalendar,
+      window.init.themeSettings.monthOfCalendar - 1,
+      1,
+    ).getDay();
+    const last_month_day = new Date(
+      window.init.themeSettings.yearOfCalendar,
+      window.init.themeSettings.monthOfCalendar,
+      0,
+    ).getDate();
+    if (first_month_dayOfWeek == 0) first_month_dayOfWeek = 7;
     var current_day = 1;
     const chall_by_days = this.getChallengesByDay();
 
     // We calculate the first week of the calendar month
     const first_week = [];
-    for (let i=1; i<8; i++) {
-      if ( i < first_month_dayOfWeek ) {
-        first_week.push({"status":"NOT_CALENDAR_MONTH"});
-      } else if ( (i > 5) && (window.init.themeSettings.challOnWE == "false")  ) {
-        first_week.push({"status":"NO_CHALL_WE", "date": current_day});
-        current_day ++;
+    for (let i = 1; i < 8; i++) {
+      if (i < first_month_dayOfWeek) {
+        first_week.push({ status: "NOT_CALENDAR_MONTH" });
+      } else if (i > 5 && window.init.themeSettings.challOnWE == "false") {
+        first_week.push({ status: "NO_CHALL_WE", date: current_day });
+        current_day++;
       } else {
         const chal = {
-          "status":"CHALL",
-          "date": current_day,
-        }
+          status: "CHALL",
+          date: current_day,
+        };
         if (chall_by_days[current_day] !== undefined) {
           chal.challenge_id = chall_by_days[current_day].id;
           chal.solved = chall_by_days[current_day].solved_by_me;
         }
         first_week.push(chal);
-        current_day ++;
+        current_day++;
       }
     }
     calendar.push(first_week);
@@ -384,23 +386,23 @@ Alpine.data("ChallengeBoard", () => ({
     // We continue with other week
     while (current_day <= last_month_day) {
       const week = [];
-      for (let i=1; i<8; i++) {
-        if (current_day > last_month_day){
-          week.push({"status":"NOT_CALENDAR_MONTH"});
-        } else if ((i > 5) && (window.init.themeSettings.challOnWE == "false") ) {
-          week.push({"status":"NO_CHALL_WE", "date": current_day});
-        } else if (current_day <= window.init.themeSettings.lastDayOfCalendar ) {
+      for (let i = 1; i < 8; i++) {
+        if (current_day > last_month_day) {
+          week.push({ status: "NOT_CALENDAR_MONTH" });
+        } else if (i > 5 && window.init.themeSettings.challOnWE == "false") {
+          week.push({ status: "NO_CHALL_WE", date: current_day });
+        } else if (current_day <= window.init.themeSettings.lastDayOfCalendar) {
           const chal = {
-            "status":"CHALL",
-            "date": current_day,
-          }
+            status: "CHALL",
+            date: current_day,
+          };
           if (chall_by_days[current_day] !== undefined) {
             chal.challenge_id = chall_by_days[current_day].id;
             chal.solved = chall_by_days[current_day].solved_by_me;
           }
           week.push(chal);
         } else {
-          week.push({"status":"NO_CHALL_AFTER_CHRISTMAS", "date": current_day});
+          week.push({ status: "NO_CHALL_AFTER_CHRISTMAS", date: current_day });
         }
         current_day++;
       }

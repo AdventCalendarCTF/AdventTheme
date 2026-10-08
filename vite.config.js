@@ -1,11 +1,38 @@
-const { resolve } = require("path");
+import { cpSync, renameSync, rmSync } from "fs";
+import { resolve } from "path";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import copy from "rollup-plugin-copy";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    // Copies fonts, images, and sounds into the build output.
+    {
+      name: "copy-static-assets",
+      closeBundle() {
+        cpSync(
+          "./node_modules/@fortawesome/fontawesome-free/webfonts",
+          "static/webfonts",
+          { recursive: true },
+        );
+        cpSync("./node_modules/boosted/dist/fonts", "static/webfonts", {
+          recursive: true,
+        });
+        cpSync("./assets/img", "static/img", { recursive: true });
+        cpSync("./assets/sounds", "static/sounds", { recursive: true });
+      },
+    },
+    // CTFd expects the manifest at static/manifest.json.
+    // Vite >= 5 writes it to static/.vite/manifest.json instead.
+    {
+      name: "flatten-vite-manifest",
+      closeBundle() {
+        renameSync("static/.vite/manifest.json", "static/manifest.json");
+        rmSync("static/.vite", { recursive: true });
+      },
+    },
+  ],
   resolve: {
     alias: {
       "~": resolve(__dirname, "./node_modules/"),
@@ -15,30 +42,6 @@ export default defineConfig({
     manifest: true,
     outDir: "static",
     rollupOptions: {
-      plugins: [
-        copy({
-          targets: [
-            // https://github.com/vitejs/vite/issues/1618#issuecomment-764579557
-            {
-              src: "./node_modules/@fortawesome/fontawesome-free/webfonts/**/*",
-              dest: "static/webfonts",
-            },
-            {
-              src: "./node_modules/boosted/dist/fonts/**",
-              dest: "static/webfonts",
-            },
-            {
-              src: "./assets/img/**",
-              dest: "static/img",
-            },
-            {
-              src: "./assets/sounds/**",
-              dest: "static/sounds",
-            },
-          ],
-          hook: "writeBundle",
-        }),
-      ],
       output: {
         manualChunks: {
           echarts: ["echarts", "zrender"],
